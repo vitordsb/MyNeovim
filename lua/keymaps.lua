@@ -30,11 +30,6 @@ map('n', '<C-l>', '<C-w>l', opts)
 map('n', '<leader><Left>', ':vertical resize -5<CR>', opts)
 map('n', '<leader><Right>', ':vertical resize +5<CR>', opts)
 
--- keymap para formatar o documento
-map('n', '<leader>f', function()
-  vim.lsp.buf.format { async = true }
-end, { desc = 'Format document' })
-
 -- NORMAL mode: mover linha com reindentar e posicionar cursor
 map('n', '<A-j>', ':m .+1<CR>==', opts)
 map('n', '<A-k>', ':m .-2<CR>==', opts)

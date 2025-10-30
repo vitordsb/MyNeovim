@@ -3,6 +3,8 @@ require 'options'
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+vim.opt.shell = '/usr/bin/fish'
+
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -68,4 +70,12 @@ require('lazy').setup({
       lazy = '💤 ',
     },
   },
+})
+
+vim.api.nvim_create_autocmd('BufReadCmd', {
+  pattern = '*.pdf',
+  callback = function(args)
+    vim.fn.jobstart({ 'zathura', args.file }, { detach = true })
+    vim.cmd 'bdelete!'
+  end,
 })

@@ -23,27 +23,20 @@ o.wrap = true -- não quebra linhas automaticamente
 o.linebreak = true -- quebra em palavras
 o.termguicolors = true
 o.breakindentopt = 'shift:2,min:20' -- opcional, desloca 2 espaços no mínimo
-o.cmdheight = 1
+o.cmdheight = 0
 o.breakindent = true -- herda indent da linha original
 o.hidden = true -- permite mudar de buffer sem salvar
 o.equalalways = false -- impede que splits se reajustem sempre
 o.scrolloff = 0
 o.backupskip = '/tmp/*,/private/tmp/*' -- evita backup em diretórios temporários
 o.laststatus = 1 -- desliga barra de status
-o.scrolloff = 20 -- mantém 8 linhas de margem ao rolar
+o.scrolloff = 6 -- mantém 8 linhas de margem ao rolar
 o.updatetime = 200 -- tempo de atualização (ms) p/ CursorHold e swap
 o.clipboard = 'unnamedplus' -- usa clipboard do sistema
 o.completeopt = 'menu,menuone,noselect' -- melhor UX p/ LSP/completes
 o.virtualedit = 'block'
 o.fillchars = 'eob: '
 
-vim.diagnostic.config {
-  virtual_text = false,
-  signs = true,
-  underline = true,
-  update_in_insert = true,
-  severity_sort = true,
-}
 vim.api.nvim_create_autocmd('FileType', {
   pattern = '*',
   callback = function()
