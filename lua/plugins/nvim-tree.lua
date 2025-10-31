@@ -15,6 +15,10 @@ return {
           width = 25,
           side = 'left',
         },
+        git = {
+          enable = true,
+          ignore = false,
+        },
         renderer = {
           root_folder_label = false,
           indent_width = 0,
@@ -33,6 +37,8 @@ return {
         },
         filters = {
           dotfiles = false,
+          git_ignored = false,
+          custom = {},
         },
       }
       vim.keymap.set('n', '<leader>b', '<cmd>NvimTreeToggle<CR>', { desc = 'Toggle NvimTree' })
