@@ -25,8 +25,8 @@ return {
     },
     config = function(_, opts)
       require('bufferline').setup(opts)
-      vim.keymap.set('n', '<C-S-p>', '<cmd>BufferLineCyclePrev<CR>', { desc = 'Previous buffer (breadcrumbs)' })
-      vim.keymap.set('n', '<C-S-n>', '<cmd>BufferLineCycleNext<CR>', { desc = 'Next buffer (breadcrumbs)' })
+      vim.keymap.set('n', '<C-h>', '<cmd>BufferLineCyclePrev<CR>', { desc = 'Previous buffer (breadcrumbs)' })
+      vim.keymap.set('n', '<C-l>', '<cmd>BufferLineCycleNext<CR>', { desc = 'Next buffer (breadcrumbs)' })
     end,
   },
 }
