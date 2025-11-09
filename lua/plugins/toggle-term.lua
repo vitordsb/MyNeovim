@@ -5,9 +5,9 @@ return {
     version = 'v2.*',
     config = function()
       require('toggleterm').setup {
-        size = 12,
+        size = 15,
         open_mapping = [[<c-j>]], -- atalho principal
-        direction = 'float',      -- 🧠 padrão agora é float
+        direction = 'horizontal',      -- 🧠 padrão agora é float
         hide_numbers = true,
         shade_terminals = true,
         start_in_insert = true,
@@ -20,9 +20,6 @@ return {
           winblend = 5,           -- leve transparência (0–100)
         },
       }
-
-      -- Atalho alternativo para abrir um novo float terminal
-      vim.keymap.set("n", "<leader>t", "<cmd>ToggleTerm<CR>", { desc = "Abrir terminal flutuante" })
     end,
   },
 }

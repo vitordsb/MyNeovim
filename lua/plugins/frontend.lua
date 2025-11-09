@@ -6,6 +6,7 @@ return {
       'javascriptreact',
       'typescriptreact',
       'vue',
+      'jsx',
       'svelte',
       'tsx',
     },
@@ -16,6 +17,8 @@ return {
     ft = {
       'html',
       'css',
+      'less',
+      'sass',
       'scss',
       'javascript',
       'javascriptreact',
