@@ -37,3 +37,39 @@ map('n', '<A-k>', ':m .-2<CR>==', opts)
 -- VISUAL mode: mover bloco mantendo seleção
 map('x', '<A-j>', ":m '>+1<CR>gv=gv", opts)
 map('x', '<A-k>', ":m '<-2<CR>gv=gv", opts)
+
+-- Mantém o último yank disponível mesmo que o clipboard do sistema mude
+local last_yank = { contents = nil, regtype = 'v', active = false }
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    local event = vim.v.event or {}
+    if event.operator == 'y' then
+      last_yank.contents = vim.deepcopy(event.regcontents or {})
+      last_yank.regtype = event.regtype or 'v'
+      last_yank.active = true
+    elseif event.operator == 'd' or event.operator == 'c' then
+      last_yank.active = false
+    end
+  end,
+})
+
+local function persistent_paste(cmd)
+  return function()
+    local count = vim.v.count > 0 and tostring(vim.v.count) or ''
+    local register = vim.v.register
+    if register and register ~= '' then
+      vim.cmd.normal { string.format('%s"%s%s', count, register, cmd), bang = true }
+      return
+    end
+    if last_yank.active and last_yank.contents and #last_yank.contents > 0 then
+      vim.fn.setreg('0', vim.deepcopy(last_yank.contents), last_yank.regtype)
+      vim.cmd.normal { string.format('%s"0%s', count, cmd), bang = true }
+    else
+      vim.cmd.normal { count .. cmd, bang = true }
+    end
+  end
+end
+
+map('n', 'p', persistent_paste('p'), { noremap = true, silent = true, desc = 'Colar mantendo último yank' })
+map('n', 'P', persistent_paste('P'), { noremap = true, silent = true, desc = 'Colar antes mantendo último yank' })

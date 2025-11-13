@@ -59,11 +59,13 @@ return {
         tailwindcss = {},
         jsonls = {},
         pyright = {},
-        jdtls = {},
+        ts_ls = {},
+        marksman = {},
         yamlls = {},
         bashls = {},
         dockerls = {},
         eslint = {},
+        jdtls = {},
         emmet_language_server = {
           filetypes = { 'css', 'html', 'javascriptreact', 'typescriptreact', 'scss' },
         },
@@ -85,6 +87,7 @@ return {
           'dockerfile-language-server',
           'eslint-lsp',
           'emmet-language-server',
+          'marksman',
           -- Formatters / Linters
           'stylua',
           'prettierd',
@@ -92,10 +95,12 @@ return {
           'typescript-language-server',
         },
         auto_update = false, -- ⛔ evita re-downloads
-        run_on_start = false, -- ⛔ não força instalação toda vez
+        run_on_start = true, -- garante instalações antes de abrir arquivos
+        start_delay = 2000,
       }
 
       require('mason-lspconfig').setup {
+        ensure_installed = vim.tbl_keys(servers),
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -106,5 +111,21 @@ return {
       }
     end,
   },
+  {
+    'chikko80/error-lens.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    opts = {
+      auto_adjust = {
+        enable = true,
+        fallback_bg_color = '#1e1e2e',
+        step = 5,
+        total = 30,
+      },
+      prefix = 3,
+    },
+    config = function(_, opts)
+      require('error-lens').setup(opts)
+    end,
+  },
 }
-
